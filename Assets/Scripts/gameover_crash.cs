@@ -16,9 +16,8 @@ public class gameover_fall : MonoBehaviour
         
     }
 
-    void onTriggerEnter(Collider collision){
+    void OnTriggerEnter(Collider collision){
         if(collision.gameObject.tag == "fall"){
             Debug.Log("Fall");
-        }
     }
 }
