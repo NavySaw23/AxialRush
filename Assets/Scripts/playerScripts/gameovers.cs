@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class gameover_crash : MonoBehaviour
+public class gameovers : MonoBehaviour
 {
+    public Manager gm;
     // Start is called before the first frame update
     void Start()
     {
@@ -13,12 +14,8 @@ public class gameover_crash : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-    }
-
-    void onTriggerEnter(Collider collision){
-        if(collision.gameObject.tag == "Fall"){
-            Debug.Log("Fall");
+        if(gm.Player.velocity.y < -5){
+            Debug.Log("Falllll");
         }
     }
 }
