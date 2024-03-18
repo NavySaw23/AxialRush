@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class LevelScript : MonoBehaviour
 {
-    public float rotationAmount = 90f; // Rotation amount in degrees
-    public float duration = 1f; // Duration of the rotation 
+    public Manager gm;
+    private float rotationAmount = 90f; 
     private bool isRotating = false;
     private Quaternion targetRotation;
     private Vector3 currentEulerAngles;
@@ -20,24 +20,19 @@ public class LevelScript : MonoBehaviour
     {
         if (!isRotating)
         {
-            Vector3 rotationDelta = Vector3.zero;
+            Vector3 rotationDelta = Vector3.zero;  //Initial rotation
 
+            //roll left and right
             if (Input.GetKeyDown(KeyCode.Keypad7))
             {
                 rotationDelta += new Vector3(0, 0, rotationAmount);
-            }
-            else if (Input.GetKeyDown(KeyCode.Keypad8))
-            {
-                rotationDelta += new Vector3(rotationAmount, 0, 0);
             }
             else if (Input.GetKeyDown(KeyCode.Keypad9))
             {
                 rotationDelta += new Vector3(0, 0, -rotationAmount);
             }
-            else if (Input.GetKeyDown(KeyCode.Keypad5))
-            {
-                rotationDelta += new Vector3(-rotationAmount, 0, 0);
-            }
+
+            // turn left and right
             else if (Input.GetKeyDown(KeyCode.Keypad4))
             {
                 rotationDelta += new Vector3(0, rotationAmount, 0);
@@ -64,10 +59,10 @@ public class LevelScript : MonoBehaviour
         Quaternion startRotation = transform.rotation;
         float t = 0f;
 
-        while (t < 1f)
+        while (t < gm.rotationCooldownSec)
         {
-            t += Time.deltaTime / duration;
-            transform.rotation = Quaternion.Lerp(startRotation, targetRotation, t);
+            t += Time.deltaTime;
+            transform.rotation = Quaternion.Lerp(startRotation, targetRotation, gm.rotationSpeed*t);
             yield return null;
         }
 
