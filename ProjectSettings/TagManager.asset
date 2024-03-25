@@ -4,8 +4,9 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - fall
   - crash
+  - burn
+  - key
   - segment
   layers:
   - Default

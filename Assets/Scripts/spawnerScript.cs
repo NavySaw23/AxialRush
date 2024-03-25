@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class spawnerScript : MonoBehaviour
 {
-    public GameObject prefabToSpawn; // Assign your prefab in the inspector
+    public GameObject prefabToSpawn;
+    public GameObject parentObject;
     Vector3 pos;
 
     void Start()
@@ -17,14 +18,13 @@ public class spawnerScript : MonoBehaviour
         transform.position = pos;
     }
 
-    // This method is called when the trigger collides with another object
     void OnTriggerEnter(Collider other)
     {
-        // Check if the object has the tag 'segment'
         if (other.gameObject.CompareTag("segment"))
         {
-            // Instantiate the prefab at the position you want
-            Instantiate(prefabToSpawn, pos, Quaternion.identity);
+            Debug.Log("spawn");
+            GameObject instantiatedObject = Instantiate(prefabToSpawn, pos, Quaternion.identity);
+            instantiatedObject.transform.parent = parentObject.transform;
         }
     }
 }
