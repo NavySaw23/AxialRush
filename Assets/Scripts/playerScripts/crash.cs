@@ -10,7 +10,10 @@ public class crash : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("crash"))
         {
-            Debug.Log("crash");
+            // Debug.Log("crash");
+            gm.gameoverText.text = "Player crashed into the wall";
+            gm.gameover = true;
+
         }
     }
 }

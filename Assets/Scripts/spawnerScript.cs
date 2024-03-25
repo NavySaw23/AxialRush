@@ -22,7 +22,7 @@ public class spawnerScript : MonoBehaviour
     {
         if (other.gameObject.CompareTag("segment"))
         {
-            Debug.Log("spawn");
+            // Debug.Log("spawn");
             GameObject instantiatedObject = Instantiate(prefabToSpawn, pos, Quaternion.identity);
             instantiatedObject.transform.parent = parentObject.transform;
         }

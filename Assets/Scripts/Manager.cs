@@ -1,30 +1,61 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
+using TMPro;
 
 public class Manager : MonoBehaviour
 {
     public Rigidbody Player;
     public rotationMatrix position;
+    public GameObject world;
 
+    // Level Rotation
     public float rotationCooldownSec = 0.4f;
     public float rotationSpeed = 3f;
 
-    //camera bobbing
+    // Camera Bobbing
     public float bobbingSpeed = 14.0f;
     public float bobbingAmount = 0.05f;
 
+    // Points
+    public TMP_Text scoreboard;
+    public int points = 0;
 
-    void Start()
+    // Gameovers
+    public bool gameover = false;
+    public GameObject gameoverObject;
+    public TMP_Text gameoverText;
+
+
+    private void Start()
     {
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
+
         Physics.gravity = new Vector3(0f, -100f, 0f);
+        gameover = false;
+        points = 0;
+
+        // Start the coroutine to increase points every second
+        StartCoroutine(IncrementPoints());
     }
 
-    // void Update(){
-    //     if(Input.GetKeyDown(KeyCode.Keypad0)){
-    //         position.Current = position.Current.Lturn;
-    //         Debug.Log(position.Current.DirQuat);
-    //     }
-    // }
+    private void Update()
+    {
+        scoreboard.text = points + " m";
+
+        if (gameover)
+        {
+            gameoverObject.SetActive(true);
+            GameObject.Destroy(world);
+            Player.useGravity = false;
+        }
+    }
+
+    private IEnumerator IncrementPoints()
+    {
+        while (!gameover)
+        {
+            yield return new WaitForSeconds(1f);
+            points++;
+        }
+    }
 }

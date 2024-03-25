@@ -9,7 +9,10 @@ public class gameovers : MonoBehaviour
     void Update()
     {
         if(gm.Player.velocity.y < -5){
-            Debug.Log("Fall");
+            // Debug.Log("Fall");
+            gm.gameoverText.text = "Player fell down";
+            gm.gameover = true;
+
         }
     }
 }
