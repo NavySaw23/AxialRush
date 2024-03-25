@@ -14,8 +14,6 @@ public class LevelScript : MonoBehaviour
 
 
     private int yawvar = 0;
-    private int rollvar = 0;
-
     private int lr = 0;
     private Vector2 touchStartPos;
     private bool isSwipe;
@@ -98,11 +96,11 @@ public class LevelScript : MonoBehaviour
             if (yawvar == 0)
             {
                 // roll left and right
-                if (Input.GetKeyDown(KeyCode.Keypad7)||tilt.x < -0.8f)
+                if (Input.GetKeyDown(KeyCode.Keypad7)||tilt.x < -0.5f)
                 {
                     rotationDelta += new Vector3(0, 0, rotationAmount);
                 }
-                else if (Input.GetKeyDown(KeyCode.Keypad9)||tilt.x > 0.8f)
+                else if (Input.GetKeyDown(KeyCode.Keypad9)||tilt.x > 0.5f)
                 {
                     rotationDelta += new Vector3(0, 0, -rotationAmount);
                 }
@@ -110,11 +108,11 @@ public class LevelScript : MonoBehaviour
             else if (yawvar == 1)
             {
                 // roll left and right
-                if (Input.GetKeyDown(KeyCode.Keypad7)||tilt.x < -0.8f)
+                if (Input.GetKeyDown(KeyCode.Keypad7)||tilt.x < -0.5f)
                 {
                     rotationDelta += new Vector3(rotationAmount, 0, 0);
                 }
-                else if (Input.GetKeyDown(KeyCode.Keypad9)||tilt.x > 0.8f)
+                else if (Input.GetKeyDown(KeyCode.Keypad9)||tilt.x > 0.5f)
                 {
                     rotationDelta += new Vector3(-rotationAmount, 0, 0);
                 }
@@ -122,11 +120,11 @@ public class LevelScript : MonoBehaviour
             else if (yawvar == 2)
             {
                 // roll left and right
-                if (Input.GetKeyDown(KeyCode.Keypad7)||tilt.x < -0.8f)
+                if (Input.GetKeyDown(KeyCode.Keypad7)||tilt.x < -0.5f)
                 {
                     rotationDelta += new Vector3(0, 0, -rotationAmount);
                 }
-                else if (Input.GetKeyDown(KeyCode.Keypad9)||tilt.x > 0.8f)
+                else if (Input.GetKeyDown(KeyCode.Keypad9)||tilt.x > 0.5f)
                 {
                     rotationDelta += new Vector3(0, 0, rotationAmount);
                 }
@@ -134,11 +132,11 @@ public class LevelScript : MonoBehaviour
             else if (yawvar == 3)
             {
                  // roll left and right
-                if (Input.GetKeyDown(KeyCode.Keypad7)||tilt.x < -0.8f)
+                if (Input.GetKeyDown(KeyCode.Keypad7)||tilt.x < -0.5f)
                 {
                     rotationDelta += new Vector3(-rotationAmount, 0, 0);
                 }
-                else if (Input.GetKeyDown(KeyCode.Keypad9)||tilt.x > 0.8f)
+                else if (Input.GetKeyDown(KeyCode.Keypad9)||tilt.x > 0.5f)
                 {
                     rotationDelta += new Vector3(rotationAmount, 0, 0);
                 }
