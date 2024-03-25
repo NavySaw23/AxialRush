@@ -11,6 +11,10 @@ public class Manager : MonoBehaviour
     public float rotationCooldownSec = 0.4f;
     public float rotationSpeed = 3f;
 
+    //camera bobbing
+    public float bobbingSpeed = 14.0f;
+    public float bobbingAmount = 0.05f;
+
 
     void Start()
     {
