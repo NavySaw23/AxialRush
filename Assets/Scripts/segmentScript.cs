@@ -14,5 +14,9 @@ public class segmentScript : MonoBehaviour
     void Update()
     {
         transform.position -= transform.parent.parent.forward * speed * Time.deltaTime;
+
+        if(transform.position.z < -100){
+            GameObject.Destroy(transform.gameObject);
+        }
     }
 }
