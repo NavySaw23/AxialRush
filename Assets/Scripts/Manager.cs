@@ -4,23 +4,29 @@ using TMPro;
 
 public class Manager : MonoBehaviour
 {
+    // basic
+    [Header("Basic")]
     public Rigidbody Player;
     public rotationMatrix position;
     public GameObject world;
 
     // Level Rotation
+    [Header("Level Rotation")]
     public float rotationCooldownSec = 0.4f;
     public float rotationSpeed = 3f;
 
     // Camera Bobbing
+    [Header("Camera Bobbing")]
     public float bobbingSpeed = 14.0f;
     public float bobbingAmount = 0.05f;
 
     // Points
+    [Header("Points")]
     public TMP_Text scoreboard;
     public int points = 0;
 
     // Gameovers
+    [Header("Gameovers")]
     public bool gameover = false;
     public GameObject gameoverObject;
     public TMP_Text gameoverText;
@@ -35,7 +41,7 @@ public class Manager : MonoBehaviour
         points = 0;
 
         // Start the coroutine to increase points every second
-        StartCoroutine(IncrementPoints());
+        // StartCoroutine(IncrementPoints());
     }
 
     private void Update()

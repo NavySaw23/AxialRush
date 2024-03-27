@@ -282,6 +282,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  gm: {fileID: 0}
 --- !u!1 &71529266
 GameObject:
   m_ObjectHideFlags: 0
@@ -1053,7 +1054,7 @@ GameObject:
   - component: {fileID: 815956312}
   - component: {fileID: 815956313}
   m_Layer: 0
-  m_Name: CrashDetector
+  m_Name: frontDetector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2135,8 +2136,9 @@ GameObject:
   - component: {fileID: 1561350187}
   - component: {fileID: 1561350189}
   - component: {fileID: 1561350188}
+  - component: {fileID: 1561350190}
   m_Layer: 0
-  m_Name: BurnDetector
+  m_Name: bottomDetector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2191,6 +2193,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.9291971, y: 0.2875232, z: 1}
   m_Center: {x: -0.0059001446, y: -0.8336799, z: 0}
+--- !u!114 &1561350190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1561350186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 765976729c07894479bc2c43dd69f00d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gm: {fileID: 1732250768}
 --- !u!4 &1644496286 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7222178337018164589, guid: 391030d800594da41bd3ef6fdd96a08c, type: 3}
@@ -2427,6 +2442,7 @@ MonoBehaviour:
   Player: {fileID: 2002472188}
   position: {fileID: 954142045}
   world: {fileID: 321811383}
+  Paused: 0
   rotationCooldownSec: 0.4
   rotationSpeed: 3
   bobbingSpeed: 14
@@ -2654,6 +2670,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5397927466450601987, guid: 391030d800594da41bd3ef6fdd96a08c, type: 3}
+      propertyPath: checkInterval
+      value: 0.05
+      objectReference: {fileID: 0}
     - target: {fileID: 6186127264949760450, guid: 391030d800594da41bd3ef6fdd96a08c, type: 3}
       propertyPath: m_LocalScale.z
       value: 100
@@ -2694,6 +2714,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7130085410721692716, guid: 391030d800594da41bd3ef6fdd96a08c, type: 3}
+      propertyPath: gm
+      value: 
+      objectReference: {fileID: 1732250768}
     - target: {fileID: 7130085410721692716, guid: 391030d800594da41bd3ef6fdd96a08c, type: 3}
       propertyPath: speed
       value: 4

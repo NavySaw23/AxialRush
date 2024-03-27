@@ -8,7 +8,7 @@ public class crash : MonoBehaviour
 
     void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject.CompareTag("crash"))
+        if (collision.gameObject.CompareTag("crash") || collision.gameObject.CompareTag("crash_"))
         {
             // Debug.Log("crash");
             gm.gameoverText.text = "Player crashed into the wall";
