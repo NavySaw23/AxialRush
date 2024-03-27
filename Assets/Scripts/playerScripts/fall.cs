@@ -8,7 +8,7 @@ public class gameovers : MonoBehaviour
     
     void Update()
     {
-        if(gm.Player.velocity.y < -5){
+        if(gm.Player.velocity.y < -10){
             // Debug.Log("Fall");
             gm.gameoverText.text = "Player fell down";
             gm.gameover = true;
