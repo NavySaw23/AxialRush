@@ -18,7 +18,7 @@ public class LevelScript : MonoBehaviour
     void Start()
     {
         targetRotation = gm.position.Current.DirQuat;
-        DEBUG("Initial Rotation ", transform.rotation );
+        // DEBUG("Initial Rotation ", transform.rotation );
     }
 
     void Update()
@@ -31,7 +31,7 @@ public class LevelScript : MonoBehaviour
         Vector3 tilt = Input.acceleration;
         tilt = Quaternion.Euler(90, 0, 0) * tilt;  
         
-        Debug.Log(tilt);
+        // Debug.Log(tilt);
 
         // touch inputs (swipe)
         if (Input.touchCount > 0)
@@ -66,7 +66,7 @@ public class LevelScript : MonoBehaviour
 
         //rotation phyics
 
-        if (!isRotating)
+        if (!isRotating && !gm.Paused && !gm.gameover)
         {
             // turn left and right
             if (Input.GetKeyDown(KeyCode.Keypad4) || lr == -1)
@@ -112,7 +112,7 @@ public class LevelScript : MonoBehaviour
 
         while (t < gm.rotationCooldownSec)
         {
-            t += Time.deltaTime;
+            t += Time.unscaledDeltaTime;
             transform.rotation = Quaternion.Lerp(startRotation, targetRotation, gm.rotationSpeed * t);
             yield return null;
         }
@@ -121,7 +121,7 @@ public class LevelScript : MonoBehaviour
         isRotating = false;
 
         // DEBUG("Post rotation (matrix)", gm.position.Current.DirQuat);
-        DEBUG("Post rotation (transform)", transform.rotation );
+        // DEBUG("Post rotation (transform)", transform.rotation );
     }
 
     public void DEBUG(string name_, Quaternion quaternion_){

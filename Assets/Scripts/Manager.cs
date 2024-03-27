@@ -9,6 +9,8 @@ public class Manager : MonoBehaviour
     public Rigidbody Player;
     public rotationMatrix position;
     public GameObject world;
+    public bool Paused = false;
+    private static float currentSpeed = 0.5f;
 
     // Level Rotation
     [Header("Level Rotation")]
@@ -29,6 +31,7 @@ public class Manager : MonoBehaviour
     [Header("Gameovers")]
     public bool gameover = false;
     public GameObject gameoverObject;
+    public GameObject restartButton;
     public TMP_Text gameoverText;
 
 
@@ -39,29 +42,58 @@ public class Manager : MonoBehaviour
         Physics.gravity = new Vector3(0f, -100f, 0f);
         gameover = false;
         points = 0;
+        StartCoroutine(speedUpdate());
 
-        // Start the coroutine to increase points every second
-        // StartCoroutine(IncrementPoints());
     }
 
     private void Update()
     {
+        Debug.Log(currentSpeed);
+
+        //pause play logic
+        if (Input.GetKeyDown(KeyCode.Space) && !Paused)
+        {
+            Paused = true;
+            Debug.Log("pause");
+        }
+        else if (Input.GetKeyDown(KeyCode.Space) && Paused)
+        {
+            Paused = false;
+            Debug.Log("play");
+        }
+
+        if (Paused || gameover)
+        {
+            Time.timeScale = 0f;
+        }
+        else
+        {
+            Time.timeScale = currentSpeed;
+        }
+
+
+
+
+        // update scoreboard
         scoreboard.text = points + " m";
 
         if (gameover)
         {
             gameoverObject.SetActive(true);
-            GameObject.Destroy(world);
+            // restartButton.SetActive(true);
             Player.useGravity = false;
         }
     }
 
-    private IEnumerator IncrementPoints()
+    private IEnumerator speedUpdate()
     {
         while (!gameover)
         {
-            yield return new WaitForSeconds(1f);
-            points++;
+            yield return new WaitForSeconds(10f);
+            if (currentSpeed < 2)
+            {
+                currentSpeed += 0.1f;
+            }
         }
     }
 }
