@@ -1,34 +1,28 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelScript : MonoBehaviour
 {
 
     public Manager gm;
-    private float rotationAmount = 90f;
     private bool isRotating = false;
     private Quaternion targetRotation;
-    private Vector3 currentEulerAngles;
 
-
-    private int yawvar = 0;
     private int lr = 0;
     private Vector2 touchStartPos;
     private bool isSwipe;
 
+    private int i = 0;
+
 
     void Start()
     {
-        targetRotation = transform.rotation;
-        currentEulerAngles = transform.eulerAngles;
+        targetRotation = gm.position.Current.DirQuat;
+        DEBUG("Initial Rotation ", transform.rotation );
     }
 
     void Update()
     {
-
-
         //gyro inputs
         Gyroscope gyro = Input.gyro;
         gyro.enabled = true;
@@ -36,6 +30,7 @@ public class LevelScript : MonoBehaviour
         // default orientation of the device
         Vector3 tilt = Input.acceleration;
         tilt = Quaternion.Euler(90, 0, 0) * tilt;  
+        
         Debug.Log(tilt);
 
         // touch inputs (swipe)
@@ -69,87 +64,37 @@ public class LevelScript : MonoBehaviour
             }
         }
 
-
-
         //rotation phyics
 
         if (!isRotating)
         {
-            Vector3 rotationDelta = Vector3.zero;  //Initial rotation
-
             // turn left and right
             if (Input.GetKeyDown(KeyCode.Keypad4) || lr == -1)
             {
-                rotationDelta += new Vector3(0, rotationAmount, 0);
-                yawvar = (yawvar - 1 + 4) % 4;
+             gm.position.Current = gm.position.Current.Lturn;
                 lr = 0;
             }
-            else if (Input.GetKeyDown(KeyCode.Keypad6) || lr == 1)
+            if (Input.GetKeyDown(KeyCode.Keypad6) || lr == 1)
             {
-                rotationDelta += new Vector3(0, -rotationAmount, 0);
-                yawvar = (yawvar + 1) % 4;
+             gm.position.Current = gm.position.Current.Rturn;
                 lr = 0;
             }
-            
-
-
-            if (yawvar == 0)
+            if (Input.GetKeyDown(KeyCode.Keypad7)||tilt.x < -0.5f)
             {
-                // roll left and right
-                if (Input.GetKeyDown(KeyCode.Keypad7)||tilt.x < -0.5f)
-                {
-                    rotationDelta += new Vector3(0, 0, rotationAmount);
-                }
-                else if (Input.GetKeyDown(KeyCode.Keypad9)||tilt.x > 0.5f)
-                {
-                    rotationDelta += new Vector3(0, 0, -rotationAmount);
-                }
+             gm.position.Current = gm.position.Current.Rroll;
             }
-            else if (yawvar == 1)
+            if (Input.GetKeyDown(KeyCode.Keypad9)||tilt.x > 0.5f)
             {
-                // roll left and right
-                if (Input.GetKeyDown(KeyCode.Keypad7)||tilt.x < -0.5f)
-                {
-                    rotationDelta += new Vector3(rotationAmount, 0, 0);
-                }
-                else if (Input.GetKeyDown(KeyCode.Keypad9)||tilt.x > 0.5f)
-                {
-                    rotationDelta += new Vector3(-rotationAmount, 0, 0);
-                }
+             gm.position.Current = gm.position.Current.Lroll;
             }
-            else if (yawvar == 2)
+            if (Input.GetKeyDown(KeyCode.Keypad0))
             {
-                // roll left and right
-                if (Input.GetKeyDown(KeyCode.Keypad7)||tilt.x < -0.5f)
-                {
-                    rotationDelta += new Vector3(0, 0, -rotationAmount);
-                }
-                else if (Input.GetKeyDown(KeyCode.Keypad9)||tilt.x > 0.5f)
-                {
-                    rotationDelta += new Vector3(0, 0, rotationAmount);
-                }
-            }
-            else if (yawvar == 3)
-            {
-                 // roll left and right
-                if (Input.GetKeyDown(KeyCode.Keypad7)||tilt.x < -0.5f)
-                {
-                    rotationDelta += new Vector3(-rotationAmount, 0, 0);
-                }
-                else if (Input.GetKeyDown(KeyCode.Keypad9)||tilt.x > 0.5f)
-                {
-                    rotationDelta += new Vector3(rotationAmount, 0, 0);
-                }
+             gm.position.Current = gm.position.RW;
             }
 
-
-
-            if (rotationDelta != Vector3.zero)
+            if (targetRotation != gm.position.Current.DirQuat)
             {
-                currentEulerAngles += rotationDelta;
-                currentEulerAngles.x = Mathf.Repeat(currentEulerAngles.x, 360);
-                currentEulerAngles.y = Mathf.Repeat(currentEulerAngles.y, 360);
-                targetRotation = Quaternion.Euler(currentEulerAngles);
+                targetRotation = gm.position.Current.DirQuat;
                 StartCoroutine(RotateToTarget());
             }
         }
@@ -159,6 +104,10 @@ public class LevelScript : MonoBehaviour
     {
         isRotating = true;
         Quaternion startRotation = transform.rotation;
+        
+        // DEBUG("Pre rotation", startRotation);
+        // DEBUG("Target rotation", targetRotation);
+
         float t = 0f;
 
         while (t < gm.rotationCooldownSec)
@@ -171,7 +120,13 @@ public class LevelScript : MonoBehaviour
         transform.rotation = targetRotation; // Ensure the target rotation is exactly reached
         isRotating = false;
 
-        Debug.Log(transform.rotation.eulerAngles);
-        Debug.Log(yawvar);
+        // DEBUG("Post rotation (matrix)", gm.position.Current.DirQuat);
+        DEBUG("Post rotation (transform)", transform.rotation );
+    }
+
+    public void DEBUG(string name_, Quaternion quaternion_){
+        Debug.Log(i++ + name_ + " | " + quaternion_.w + ", " + quaternion_.x + ", " + quaternion_.y + ", " + quaternion_.z);
+        
+        Debug.Log("Name - " + gm.position.Current.name);
     }
 }
