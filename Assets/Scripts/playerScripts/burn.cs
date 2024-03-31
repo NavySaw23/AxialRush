@@ -11,7 +11,7 @@ public class burn : MonoBehaviour
         if (collision.gameObject.CompareTag("burn"))
         {
             // Debug.Log("burn");
-            gm.gameoverText.text = "Player stepped on a burning wormhole";
+            gm.gameoverText.text = "THE FLOOR IS LAVA!";
             gm.gameover = true;
         }
     }

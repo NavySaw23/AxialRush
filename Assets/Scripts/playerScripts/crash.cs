@@ -11,7 +11,7 @@ public class crash : MonoBehaviour
         if (collision.gameObject.CompareTag("crash") || collision.gameObject.CompareTag("crash_"))
         {
             // Debug.Log("crash");
-            gm.gameoverText.text = "Player crashed into the wall";
+            gm.gameoverText.text = "Should have worn a helmet";
             gm.gameover = true;
 
         }

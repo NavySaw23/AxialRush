@@ -10,7 +10,7 @@ public class Manager : MonoBehaviour
     public rotationMatrix position;
     public GameObject world;
     public bool Paused = false;
-    private static float currentSpeed = 0.5f;
+    private static float currentSpeed = 0.6f;
 
     // Level Rotation
     [Header("Level Rotation")]
@@ -33,6 +33,7 @@ public class Manager : MonoBehaviour
     public GameObject gameoverObject;
     public GameObject restartButton;
     public TMP_Text gameoverText;
+    public restart restart;
 
 
     private void Start()
@@ -54,12 +55,16 @@ public class Manager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && !Paused)
         {
             Paused = true;
-            Debug.Log("pause");
+            // Debug.Log("pause");
         }
         else if (Input.GetKeyDown(KeyCode.Space) && Paused)
         {
             Paused = false;
-            Debug.Log("play");
+            // Debug.Log("play");
+        }
+        else if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            restart.restartGame();
         }
 
         if (Paused || gameover)
@@ -80,7 +85,7 @@ public class Manager : MonoBehaviour
         if (gameover)
         {
             gameoverObject.SetActive(true);
-            // restartButton.SetActive(true);
+            restartButton.SetActive(true);
             Player.useGravity = false;
         }
     }
@@ -89,7 +94,7 @@ public class Manager : MonoBehaviour
     {
         while (!gameover)
         {
-            yield return new WaitForSeconds(10f);
+            yield return new WaitForSeconds(20f);
             if (currentSpeed < 2)
             {
                 currentSpeed += 0.1f;
