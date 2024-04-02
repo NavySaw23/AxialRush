@@ -27,6 +27,11 @@ public class Manager : MonoBehaviour
     public TMP_Text scoreboard;
     public int points = 0;
 
+    // attacks
+    [Header("Attack")]
+    public float attackDuration = 0.3f;
+    public bool isAttacking = false;
+
     // Gameovers
     [Header("Gameovers")]
     public bool gameover = false;
@@ -39,17 +44,18 @@ public class Manager : MonoBehaviour
     private void Start()
     {
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
+        currentSpeed = 0.6f;
+
 
         Physics.gravity = new Vector3(0f, -100f, 0f);
         gameover = false;
         points = 0;
-        StartCoroutine(speedUpdate());
 
     }
 
     private void Update()
     {
-        Debug.Log(currentSpeed);
+        // Debug.Log(currentSpeed);
 
         //pause play logic
         if (Input.GetKeyDown(KeyCode.Space) && !Paused)
@@ -65,6 +71,10 @@ public class Manager : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Escape))
         {
             restart.restartGame();
+        }
+        else if (Input.GetKeyDown(KeyCode.Keypad5))
+        {
+            Attack();
         }
 
         if (Paused || gameover)
@@ -100,5 +110,22 @@ public class Manager : MonoBehaviour
                 currentSpeed += 0.1f;
             }
         }
+    }
+
+    public void Attack()
+    {
+        if (!isAttacking)
+        {
+            isAttacking = true;
+            Debug.Log("Attacking!");
+            StartCoroutine(StopAfterDelay());
+        }
+    }
+
+    IEnumerator StopAfterDelay()
+    {
+        yield return new WaitForSeconds(attackDuration); // Add a delay of 1 second
+        isAttacking = false;
+        Debug.Log("Stopped");
     }
 }
