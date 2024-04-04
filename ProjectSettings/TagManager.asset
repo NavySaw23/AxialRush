@@ -8,14 +8,16 @@ TagManager:
   - burn
   - key
   - segment
+  - crash_
+  - enemy
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - abxx
+  - 
   - Water
   - UI
-  - UIBG
+  - 
   - 
   - 
   - 

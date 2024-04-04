@@ -6,7 +6,7 @@ public class Rmatrix
     public Rmatrix Lturn;
     public Rmatrix Rturn;
     public Rmatrix Lroll;
-    public Rmatrix Rroll;   
+    public Rmatrix Rroll;
     public string name;
     public Quaternion DirQuat;
 

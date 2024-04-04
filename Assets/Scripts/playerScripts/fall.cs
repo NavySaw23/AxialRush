@@ -10,7 +10,7 @@ public class gameovers : MonoBehaviour
     {
         if(gm.Player.velocity.y < -10){
             // Debug.Log("Fall");
-            gm.gameoverText.text = "Player fell down";
+            gm.gameoverText.text = "Wheres my parachute!?";
             gm.gameover = true;
 
         }
