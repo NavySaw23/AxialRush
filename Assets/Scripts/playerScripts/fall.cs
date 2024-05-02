@@ -8,7 +8,7 @@ public class gameovers : MonoBehaviour
     
     void Update()
     {
-        if(gm.Player.velocity.y < -10){
+        if(gm.Player.velocity.y < -20){
             // Debug.Log("Fall");
             gm.gameoverText.text = "Wheres my parachute!?";
             gm.gameover = true;
