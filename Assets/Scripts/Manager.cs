@@ -8,6 +8,8 @@ public class Manager : MonoBehaviour
     [Header("Basic")]
     public Rigidbody Player;
     public rotationMatrix position;
+    public Animator animator;
+
     public GameObject world;
     public bool Paused = false;
     private static float currentSpeed = 0.6f;
@@ -36,13 +38,22 @@ public class Manager : MonoBehaviour
     [Header("Gameovers")]
     public bool gameover = false;
     public GameObject gameoverObject;
+    public GameObject gameoverBG;
     public GameObject restartButton;
+    public GameObject pauseButton;
+    public GameObject attackLButton;
+    public GameObject attackRButton;
     public TMP_Text gameoverText;
     public restart restart;
 
 
     private void Start()
     {
+        Screen.autorotateToPortrait = false;
+        Screen.autorotateToPortraitUpsideDown = false;
+        Screen.autorotateToLandscapeLeft = true;
+        Screen.autorotateToLandscapeRight = true;
+        Screen.orientation = ScreenOrientation.AutoRotation;
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
         currentSpeed = 0.6f;
 
@@ -60,13 +71,8 @@ public class Manager : MonoBehaviour
         //pause play logic
         if (Input.GetKeyDown(KeyCode.Space) && !Paused)
         {
-            Paused = true;
+            Pause();
             // Debug.Log("pause");
-        }
-        else if (Input.GetKeyDown(KeyCode.Space) && Paused)
-        {
-            Paused = false;
-            // Debug.Log("play");
         }
         else if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -95,7 +101,13 @@ public class Manager : MonoBehaviour
         if (gameover)
         {
             gameoverObject.SetActive(true);
+            gameoverBG.SetActive(true);
             restartButton.SetActive(true);
+
+            pauseButton.SetActive(false);
+            attackLButton.SetActive(false);
+            attackRButton.SetActive(false);
+
             Player.useGravity = false;
         }
     }
@@ -117,8 +129,30 @@ public class Manager : MonoBehaviour
         if (!isAttacking)
         {
             isAttacking = true;
-            Debug.Log("Attacking!");
+            // Debug.Log("Attacking!");
+            ChangeAnimationState("Attack");
             StartCoroutine(StopAfterDelay());
+        }
+    }
+
+    void ChangeAnimationState(string stateName)
+    {
+        if (!animator.GetCurrentAnimatorStateInfo(0).IsName(stateName))
+        {
+            animator.Play(stateName);
+
+        }
+    }
+
+    public void Pause()
+    {
+        if (Paused)
+        {
+            Paused = false;
+        }
+        else if (!Paused)
+        {
+            Paused = true;
         }
     }
 

@@ -1,16 +1,17 @@
-using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
-public class score : MonoBehaviour
+public class Score : MonoBehaviour
 {
     public Manager gm;
 
-    void OnTriggerEnter(Collider collision)
+    private void OnTriggerEnter(Collider collision)
     {
         if (collision.gameObject.CompareTag("crash"))
         {
             gm.points++;
         }
     }
+
 }
