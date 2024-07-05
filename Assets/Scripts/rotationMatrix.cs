@@ -35,7 +35,6 @@ public class rotationMatrix : MonoBehaviour
     public Rmatrix BO = new Rmatrix("BlueOrange", 0.5f, -0.5f, 0.5f, 0.5f);
     public Rmatrix BY = new Rmatrix("BlueYellow", 0,  0.7071068f, 0, - 0.7071068f);
 
-
     public Rmatrix OW = new Rmatrix("OrangeWhite", 0, 0, 1f, 0);
     public Rmatrix OB = new Rmatrix("OrangeBlue", 0, -0.7071068f, -0.7071068f, 0);
     public Rmatrix OG = new Rmatrix("OrangeGreen", 0, 0.7071068f, -0.7071068f, 0);
